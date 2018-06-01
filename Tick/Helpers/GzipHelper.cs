@@ -7,14 +7,14 @@ using System.Text;
 
 namespace Tick.Helpers
 {
-    public class GzipHelper
+    public class GzipHelper : ICompress
     {
         /// <summary>
         /// 压缩数据
         /// </summary>
         /// <param name="data">数据字节流</param>
         /// <returns>压缩后的数据</returns>
-        public static byte[] CompressData(byte[] data)
+        public  byte[] CompressData(byte[] data)
         {
             using (MemoryStream msOut = new MemoryStream())
             {
@@ -30,7 +30,7 @@ namespace Tick.Helpers
         /// </summary>
         /// <param name="data">数据</param>
         /// <returns>压缩后数据</returns>
-        public static string CompressData(string data)
+        public  string CompressData(string data)
         {
             byte[] arrData = Encoding.UTF8.GetBytes(data);
             byte[] arrCompressed = CompressData(arrData);
@@ -43,7 +43,7 @@ namespace Tick.Helpers
         /// <param name="inStream">入流</param>
         /// <param name="outStream">出流</param>
         /// <returns></returns>
-        public static void CompressData(Stream inStream, Stream outStream)
+        public  void CompressData(Stream inStream, Stream outStream)
         {
             using (GZipStream gzs = new GZipStream(outStream, CompressionMode.Compress, true))
             {
@@ -90,7 +90,7 @@ namespace Tick.Helpers
         /// <param name="srcFile">源文件</param>
         /// <param name="tgtFile">目标文件</param>
         /// <returns></returns>
-        public static void CompressData(string srcFile, string tgtFile)
+        public  void CompressData(string srcFile, string tgtFile)
         {
             if (File.Exists(srcFile) == false)
             {
@@ -113,7 +113,7 @@ namespace Tick.Helpers
         /// <param name="srcFile">源文件</param>
         /// <param name="tgtFile">目标文件</param>
         /// <returns></returns>
-        public static void DeCompressData(string srcFile, string tgtFile)
+        public  void DeCompressData(string srcFile, string tgtFile)
         {
             if (File.Exists(srcFile) == false)
             {
@@ -135,7 +135,7 @@ namespace Tick.Helpers
         /// <param name="inStream">入流</param>
         /// <param name="outStream">出流</param>
         /// <returns>解压后数据</returns>
-        public static void DeCompressData(Stream inStream, Stream outStream)
+        public  void DeCompressData(Stream inStream, Stream outStream)
         {
             Stream msOut = outStream;
             using (GZipStream gzs = new GZipStream(inStream, CompressionMode.Decompress, true))
@@ -157,7 +157,7 @@ namespace Tick.Helpers
         /// </summary>
         /// <param name="data">数据字节数组</param>
         /// <returns>解压后数据</returns>
-        public static byte[] DeCompressData(byte[] data)
+        public  byte[] DeCompressData(byte[] data)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -190,7 +190,7 @@ namespace Tick.Helpers
         /// </summary>
         /// <param name="data">数据/param>
         /// <returns>解压后数据</returns>
-        public static string DeCompressData(string data)
+        public  string DeCompressData(string data)
         {
             byte[] arrData = Convert.FromBase64String(data);
             byte[] arrCompressed = DeCompressData(arrData);

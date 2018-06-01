@@ -20,12 +20,13 @@ namespace Test
             Console.WriteLine("【压缩后内容】" + inter);
             Console.WriteLine("【内容数量】" + inter.Length);
 
-            content = GzipHelper.DeCompressData(inter);
+            GzipHelper h = new GzipHelper();
+            content = h.DeCompressData(inter);
             Console.WriteLine("【解压后文档内容】" + content);
             Console.WriteLine("【解压后文字数量】" + content.Length);
 
-            GzipHelper.CompressData("D:/test.docx", "D:/test1.zip");
-            GzipHelper.DeCompressData("D:/test1.zip", "D:/test2.docx");
+            h.CompressData("D:/test.docx", "D:/test1.zip");
+            h.DeCompressData("D:/test1.zip", "D:/test2.docx");
 
         }
     }
